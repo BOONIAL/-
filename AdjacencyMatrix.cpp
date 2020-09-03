@@ -2,7 +2,7 @@
  * @Description: 邻接矩阵
  * @Author: Ialboon
  * @Date: 2020-08-28 21:17:06
- * @LastEditTime: 2020-08-29 11:58:15
+ * @LastEditTime: 2020-09-03 15:34:02
  * @LastEditors: Ialboon
  */
 #include<iostream>
@@ -31,8 +31,13 @@ void CreateMGraph(MGraph *G){
     for(i=0;i<G->numNodes;i++)
         cin>>G->vexs[i];
     for(i=0;i<G->numNodes;i++)
-        for(j=0;j<G->numNodes;j++)
-            G->arc[i][j]=INFINITY;
+        for(j=0;j<G->numNodes;j++){
+            if(i==j)
+                G->arc[i][j]=0;
+            else
+                G->arc[i][j]=INFINITY;
+        }
+            
     for(k=0;k<G->numEdges;k++){
         cin>>i>>j>>w;
         G->arc[i][j]=w;
