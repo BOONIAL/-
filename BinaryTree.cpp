@@ -2,7 +2,7 @@
  * @Description: 二叉树遍历
  * @Author: Ialboon
  * @Date: 2020-08-21 20:44:54
- * @LastEditTime: 2020-08-21 21:23:39
+ * @LastEditTime: 2020-09-14 09:42:15
  * @LastEditors: Ialboon
  */
 #include<iostream>
@@ -12,6 +12,8 @@ template <class T>
 class BitNode{
 public:
     T data;
+    //结点的平衡因子
+    int bf;
     BitNode *lchild;
     BitNode *rchild;
     BitNode(T ddata):data(ddata),lchild(NULL),rchild(NULL){};
