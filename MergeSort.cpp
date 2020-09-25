@@ -1,8 +1,8 @@
 /*
- * @Description: 归并排序
+ * @Description: 归并排序 O(nlogn)
  * @Author: Ialboon
  * @Date: 2020-09-24 22:29:06
- * @LastEditTime: 2020-09-25 08:55:42
+ * @LastEditTime: 2020-09-25 10:07:39
  * @LastEditors: Ialboon
  */
 #include<iostream>
@@ -46,11 +46,41 @@ void MSort(int *SR,int *TR1,int s,int t){
     }
 }
 
+//非递归归并排序（空间复杂度降低）
+
+//将SR[]中相邻长度为s的子序列两两归并到TR[]
+void MergePass(int SR[],int TR[],int s,int n){
+    int i=1;
+    int j;
+    while (i<=n-2*s+1){
+        Merge(SR,TR,i,i+s-1,i+2*s-1);//两两归并
+        i=i+2*s;
+    }
+    if(i<n-s+1)
+        Merge(SR,TR,i,i+s-1,n);
+    else
+        for(j=i;j<=n;j++)
+            TR[j]=SR[j];
+}
+
+//对顺序表L作归并非递归排序
+template<class T>
+void MergeSort2(SqList<T> *L){
+    int *TR=new T [L->length+1];
+    int k=1;
+    while(k<L->length){
+        MergePass(L->r,TR,k,L->length);
+        k=2*k;//子序列长度加倍
+        MergePass(TR,L->r,k,L->length);
+        k=2*k;
+    }
+}
+
 int main(){
     SqList<int> *sq;
     sq->length=9;
     sq->r=new int [10]{0,9,1,5,8,3,7,4,6,2};
-    MSort(sq->r,sq->r,1,sq->length);
+    MergeSort2(sq);
     for(int i=1;i<=sq->length;i++){
         cout<<sq->r[i]<<" ";
     }
